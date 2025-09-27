@@ -17,23 +17,8 @@ router.post("/register", async (req, res) => {
 });
 
 // Login
-// router.post("/login", passport.authenticate("local"), (req, res) => {
-//   res.json({ message: "Logged in successfully", user: req.user });
-// });
-
-// Login
-router.post("/login", (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (err) return next(err);
-    if (!user) {
-      // lỗi sẽ nằm trong info.message
-      return res.status(401).json({ error: info.message });
-    }
-    req.logIn(user, (err) => {
-      if (err) return next(err);
-      return res.json({ message: "Logged in successfully", user });
-    });
-  })(req, res, next);
+router.post("/login", passport.authenticate("local"), (req, res) => {
+  res.json({ message: "Logged in successfully", user: req.user });
 });
 
 // Logout
